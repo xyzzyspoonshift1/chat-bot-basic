@@ -6,7 +6,6 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def index():
     data = request.get_json()
-    print(data)
 
     source_currency = data['queryResult']['parameters']['unit-currency']['currency']
     source_amount = data['queryResult']['parameters']['unit-currency']['amount']
@@ -15,7 +14,6 @@ def index():
     cf = fetch_conversion_factor(source_currency,final_currency)
     if cf:
         converted_amount = round((source_amount * cf),2)
-        #print(f"Converted Amount: {converted_amount} {final_currency}")
     else:
         return "Error in fetching conversion factor"
     response ={
